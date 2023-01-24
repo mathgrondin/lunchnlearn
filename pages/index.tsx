@@ -1,11 +1,15 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
+import { GetServerSideProps } from 'next'
+import { getSickValueFromDB } from './api/sick'
 
-const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+type props = {
+  isSick: boolean;
+}
+
+
+export default function Home({ isSick }: props) {
   return (
     <>
       <Head>
@@ -15,8 +19,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1 className={styles.description}>Woow trop sick</h1>
+        <h1 className={styles.description}>{isSick ? "Woow trop sick 🤘" : "...ark"}  </h1>
       </main>
     </>
   )
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const isSick = await getSickValueFromDB()
+  console.log("isSick", isSick)
+  return {
+    props: { isSick }
+  }
+};
