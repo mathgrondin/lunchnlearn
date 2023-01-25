@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import { GetServerSideProps } from 'next'
 import { getSickValueFromDB } from './api/sick'
@@ -19,7 +20,13 @@ export default function Home({ isSick }: props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1 className={styles.description}>{isSick ? "Woow trop sick 🤘" : "...ark"}  </h1>
+          <>
+            <h1 className={styles.description}>{isSick ? "C'est le fun hein?" : "Pas fun"}</h1>
+            <div className={styles.ImageContainer}>
+              <Image src="/dogs.gif" height={0} width={0} alt={'dogs'} sizes="25vw"
+                style={{ width: '100%', height: 'auto' }} />
+            </div>
+          </>
       </main>
     </>
   )
